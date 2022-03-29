@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace BeeLive.NoiseData.Core.Entities
 {
-    internal class NoiseDataAvg
+    public class NoiseDataAvg
     {
+        public long Count { get; set; } 
+        public decimal Average { get; set; }
     }
 }

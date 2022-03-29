@@ -36,7 +36,7 @@ builder.Services.Configure<ElasticSearchSettings>(x => config.GetSection("Elasti
 
 builder.Services.AddSingleton<ElasticSearchContext>();
 
-builder.Services.AddNoiseData();
+builder.Services.AddNoiseData(config);
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
