@@ -3,6 +3,7 @@ using BeeLive.NoiseData.Core.Repositories;
 using BeeLive.NoiseData.Core.Settings;
 using BeeLive.NoiseData.TransferModels;
 using BeeLive.NoiseData.TransferModels.Mapping;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace BeeLive.NoiseData.Service
@@ -11,11 +12,13 @@ namespace BeeLive.NoiseData.Service
     {
         private INoiseDataRepository repository;
         private NoiseDataSettings config;
+        private ILogger logger;
 
-        public NoiseDataService(INoiseDataRepository noiseDataRepository, IOptions<NoiseDataSettings> config)
+        public NoiseDataService(INoiseDataRepository noiseDataRepository, IOptions<NoiseDataSettings> config, ILogger<INoiseDataService> logger)
         {
             this.repository = noiseDataRepository;
             this.config = config.Value;
+            this.logger = logger;
         }
 
         public async Task InsertNoiseData(NoiseDataDto noiseDataDto)
@@ -30,7 +33,10 @@ namespace BeeLive.NoiseData.Service
             }
 
             var average = await repository.GetAverage(DateTime.UtcNow.AddHours(-config.HoursToCheck), DateTime.UtcNow, noiseDataDto.HiveId);
-
+            if(average.Count < config.MinRequiredValues)
+            {
+                logger.LogInformation($"We have only {average.Count} noise values for hive {noiseDataDto.HiveId}. In order to work at least {config.MinRequiredValues} values are required");
+            }
             await repository.AddAsync(noiseDataDto.ToEntity());
         }
     }

@@ -8,6 +8,7 @@ namespace BeeLive.NoiseData.Core.Settings
 {
     public class NoiseDataSettings
     {
-       public int HoursToCheck { get; set; } = 1;
+        public int HoursToCheck { get; set; } = 1;
+        public int MinRequiredValues { get; set; }
     }
 }
