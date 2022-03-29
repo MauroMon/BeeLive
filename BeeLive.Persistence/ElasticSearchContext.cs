@@ -1,4 +1,5 @@
-﻿using BeeLive.Core.Entities;
+﻿
+using BeeLive.NoiseData.Core.Entities;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Nest;
@@ -32,7 +33,7 @@ namespace BeeLive.Persistence
             if (!Client.Indices.Exists(valueSettings.NoiseDataIndex).Exists)
             {
                 logger.LogInformation($"Creating index {valueSettings.NoiseDataIndex}");
-                Client.Indices.Create(new CreateIndexDescriptor(valueSettings.NoiseDataIndex).Map<NoiseData>(pu => pu.AutoMap()));
+                Client.Indices.Create(new CreateIndexDescriptor(valueSettings.NoiseDataIndex).Map<NoiseData.Core.Entities.NoiseData>(pu => pu.AutoMap()));
             }
         }
     }

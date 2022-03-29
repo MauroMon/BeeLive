@@ -2,7 +2,7 @@
 {
     public static class NoiseDataMappingExtensions
     {
-        public static BeeLive.Core.Entities.NoiseData ToEntity(this BeeLive.NoiseData.TransferModels.NoiseDataDto noiseDataDto)
+        public static Core.Entities.NoiseData ToEntity(this NoiseDataDto noiseDataDto)
         {
             return new Core.Entities.NoiseData()
             {

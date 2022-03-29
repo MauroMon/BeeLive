@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BeeLive.Core.Entities
+namespace BeeLive.NoiseData.Core.Entities
 {
     public class NoiseData
     {

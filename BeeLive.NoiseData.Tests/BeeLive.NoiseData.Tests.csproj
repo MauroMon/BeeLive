@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BeeLive.NoiseData.Core\BeeLive.NoiseData.Core.csproj" />
     <ProjectReference Include="..\BeeLive.NoiseData.Service\BeeLive.NoiseData.Service.csproj" />
   </ItemGroup>
 

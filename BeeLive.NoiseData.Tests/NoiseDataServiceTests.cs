@@ -1,4 +1,5 @@
 ﻿using BeeLive.Core.Repositories;
+using BeeLive.NoiseData.Core.Repositories;
 using BeeLive.NoiseData.Service;
 using FluentAssertions;
 using Moq;
@@ -12,7 +13,7 @@ namespace BeeLive.NoiseData.Tests
         public NoiseDataServiceTests()
         {
             var noiseDataRepository = new Mock<INoiseDataRepository>();
-            noiseDataRepository.Setup(n => n.AddAsync(It.IsAny<BeeLive.Core.Entities.NoiseData>())).Returns(Task.CompletedTask);
+            noiseDataRepository.Setup(n => n.AddAsync(It.IsAny<Core.Entities.NoiseData>())).Returns(Task.CompletedTask);
             service = new NoiseDataService(noiseDataRepository.Object);
         }
 

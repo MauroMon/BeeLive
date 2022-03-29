@@ -8,8 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BeeLive.Core\BeeLive.Core.csproj" />
-    <ProjectReference Include="..\BeeLive.NoiseData.Core\BeeLive.NoiseData.Core.csproj" />
-    <ProjectReference Include="..\BeeLive.NoiseData.TransferModels\BeeLive.NoiseData.TransferModels.csproj" />
   </ItemGroup>
 
 </Project>

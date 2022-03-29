@@ -1,4 +1,6 @@
 ﻿using BeeLive.Core.Repositories;
+using BeeLive.NoiseData.Core.Repositories;
+using BeeLive.NoiseData.Persistence;
 using BeeLive.NoiseData.Service;
 using BeeLive.Persistence.Repositories;
 using Microsoft.Extensions.DependencyInjection;

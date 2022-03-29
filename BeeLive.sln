@@ -11,15 +11,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeLive.Core", "BeeLive.Cor
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NoiseData", "NoiseData", "{CD73F710-8ED9-4544-A2F6-35CDD605A9D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeLive.NoiseData.Service", "BeeLive.NoiseData.Service\BeeLive.NoiseData.Service.csproj", "{07AB4FF2-64E5-4D33-A657-142EB2F79EF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeLive.NoiseData.Service", "BeeLive.NoiseData.Service\BeeLive.NoiseData.Service.csproj", "{07AB4FF2-64E5-4D33-A657-142EB2F79EF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeLive.NoiseData.TransferModels", "BeeLive.NoiseData.TransferModels\BeeLive.NoiseData.TransferModels.csproj", "{2E4BCE4F-E9E5-4061-B33D-1F40A1B1BC16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeLive.NoiseData.TransferModels", "BeeLive.NoiseData.TransferModels\BeeLive.NoiseData.TransferModels.csproj", "{2E4BCE4F-E9E5-4061-B33D-1F40A1B1BC16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeLive.NoiseData.TransferModels.Mapping", "BeeLive.NoiseData.TransferModels.Mapping\BeeLive.NoiseData.TransferModels.Mapping.csproj", "{745AC49D-8875-4FB0-BAAA-9B59B725CE42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeLive.NoiseData.TransferModels.Mapping", "BeeLive.NoiseData.TransferModels.Mapping\BeeLive.NoiseData.TransferModels.Mapping.csproj", "{745AC49D-8875-4FB0-BAAA-9B59B725CE42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeLive.NoiseData.Modules", "BeeLive.NoiseData.Modules\BeeLive.NoiseData.Modules.csproj", "{94EBEFDE-A8F3-465E-9B3D-54B7282E0338}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeLive.NoiseData.Modules", "BeeLive.NoiseData.Modules\BeeLive.NoiseData.Modules.csproj", "{94EBEFDE-A8F3-465E-9B3D-54B7282E0338}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeLive.NoiseData.Tests", "BeeLive.NoiseData.Tests\BeeLive.NoiseData.Tests.csproj", "{1C640315-D0D9-4815-8628-60DAB2994C38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeLive.NoiseData.Tests", "BeeLive.NoiseData.Tests\BeeLive.NoiseData.Tests.csproj", "{1C640315-D0D9-4815-8628-60DAB2994C38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeLive.NoiseData.Core", "BeeLive.NoiseData.Core\BeeLive.NoiseData.Core.csproj", "{4B680D78-93D1-4CCF-92CB-2AC282B68E01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeLive.NoiseData.Persistence", "BeeLive.NoiseData.Persistence\BeeLive.NoiseData.Persistence.csproj", "{316C93BD-3EDA-4EDB-937A-FBB6BBBF3F6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +63,14 @@ Global
 		{1C640315-D0D9-4815-8628-60DAB2994C38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C640315-D0D9-4815-8628-60DAB2994C38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C640315-D0D9-4815-8628-60DAB2994C38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B680D78-93D1-4CCF-92CB-2AC282B68E01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B680D78-93D1-4CCF-92CB-2AC282B68E01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B680D78-93D1-4CCF-92CB-2AC282B68E01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B680D78-93D1-4CCF-92CB-2AC282B68E01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{316C93BD-3EDA-4EDB-937A-FBB6BBBF3F6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{316C93BD-3EDA-4EDB-937A-FBB6BBBF3F6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{316C93BD-3EDA-4EDB-937A-FBB6BBBF3F6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{316C93BD-3EDA-4EDB-937A-FBB6BBBF3F6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +81,8 @@ Global
 		{745AC49D-8875-4FB0-BAAA-9B59B725CE42} = {CD73F710-8ED9-4544-A2F6-35CDD605A9D8}
 		{94EBEFDE-A8F3-465E-9B3D-54B7282E0338} = {CD73F710-8ED9-4544-A2F6-35CDD605A9D8}
 		{1C640315-D0D9-4815-8628-60DAB2994C38} = {CD73F710-8ED9-4544-A2F6-35CDD605A9D8}
+		{4B680D78-93D1-4CCF-92CB-2AC282B68E01} = {CD73F710-8ED9-4544-A2F6-35CDD605A9D8}
+		{316C93BD-3EDA-4EDB-937A-FBB6BBBF3F6F} = {CD73F710-8ED9-4544-A2F6-35CDD605A9D8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A2E4CC27-77EC-44D0-AB3E-793676DFA516}
