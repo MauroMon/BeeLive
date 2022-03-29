@@ -33,9 +33,22 @@ namespace BeeLive.NoiseData.Service
             }
 
             var average = await repository.GetAverage(DateTime.UtcNow.AddHours(-config.HoursToCheck), DateTime.UtcNow, noiseDataDto.HiveId);
+
             if(average.Count < config.MinRequiredValues)
             {
-                logger.LogInformation($"We have only {average.Count} noise values for hive {noiseDataDto.HiveId}. In order to work at least {config.MinRequiredValues} values are required");
+                logger.LogInformation($"Hive {noiseDataDto.HiveId}: We have only {average.Count} noise values. In order to work at least {config.MinRequiredValues} values are required");
+            }
+            else
+            {
+                var warningAverage = average.Average + (decimal.Divide(average.Average, 100) * config.WarningPercentage);
+                if(noiseDataDto.Decibel > warningAverage)
+                {
+                    logger.LogInformation($"Hive {noiseDataDto.HiveId}: SUSPECT NOISE!, warning average is {warningAverage}, noise is {noiseDataDto.Decibel} db");
+                }
+                else 
+                {
+                    logger.LogInformation($"Hive {noiseDataDto.HiveId}: reciceved {noiseDataDto.Decibel} db");
+                }
             }
             await repository.AddAsync(noiseDataDto.ToEntity());
         }

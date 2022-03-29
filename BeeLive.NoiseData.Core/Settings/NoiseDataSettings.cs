@@ -10,5 +10,6 @@ namespace BeeLive.NoiseData.Core.Settings
     {
         public int HoursToCheck { get; set; } = 1;
         public int MinRequiredValues { get; set; }
+        public int WarningPercentage { get; set; }  
     }
 }
