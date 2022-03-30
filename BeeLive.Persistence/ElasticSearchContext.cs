@@ -39,7 +39,7 @@ namespace BeeLive.Persistence
             if (!Client.Indices.Exists(valueSettings.HiveIndex).Exists)
             {
                 logger.LogInformation($"Creating index {valueSettings.HiveIndex}");
-                Client.Indices.Create(new CreateIndexDescriptor(valueSettings.NoiseDataIndex).Map<Hive.Core.Entities.Hive>(pu => pu.AutoMap()));
+                Client.Indices.Create(new CreateIndexDescriptor(valueSettings.HiveIndex).Map<Hive.Core.Entities.Hive>(pu => pu.AutoMap()));
             }
         }
     }

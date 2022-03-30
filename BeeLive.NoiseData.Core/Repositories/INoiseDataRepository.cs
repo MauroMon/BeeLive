@@ -10,6 +10,8 @@ namespace BeeLive.NoiseData.Core.Repositories
 {
     public interface INoiseDataRepository : IRepository<Entities.NoiseData>
     {
+        Task<NoiseDataCount> CountAsync(DateTime dtFrom, DateTime dtTo, int hiveId);
         Task<NoiseDataAvg> GetAverage(DateTime dtStart, DateTime dtEnd, int HiveId);
+
     }
 }

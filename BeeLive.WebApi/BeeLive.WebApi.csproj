@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BeeLive.Hive.Modules\BeeLive.Hive.Modules.csproj" />
     <ProjectReference Include="..\BeeLive.NoiseData.Modules\BeeLive.NoiseData.Modules.csproj" />
     <ProjectReference Include="..\BeeLive.Persistence\BeeLive.Persistence.csproj" />
   </ItemGroup>

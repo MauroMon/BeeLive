@@ -11,5 +11,6 @@ namespace BeeLive.NoiseData.Core.Entities
         public DateTime Dt { get; set; }
         public decimal Decibel { get; set; }
         public int HiveId { get; set; }
+        public bool Warning { get; set; }
     }
 }

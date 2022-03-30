@@ -2,13 +2,14 @@
 {
     public static class NoiseDataMappingExtensions
     {
-        public static Core.Entities.NoiseData ToEntity(this NoiseDataDto noiseDataDto)
+        public static Core.Entities.NoiseData ToEntity(this NoiseDataDto noiseDataDto, bool warning)
         {
             return new Core.Entities.NoiseData()
             {
                 Decibel = noiseDataDto.Decibel,
                 HiveId = noiseDataDto.HiveId,
-                Dt = DateTime.UtcNow
+                Dt = DateTime.UtcNow,
+                Warning = warning
             };
         }
     }

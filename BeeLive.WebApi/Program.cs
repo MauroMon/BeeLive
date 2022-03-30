@@ -1,4 +1,5 @@
 using BeeLive.Core.Repositories;
+using BeeLive.Hive.Modules;
 using BeeLive.NoiseData.Modules;
 using BeeLive.Persistence;
 using BeeLive.Persistence.Repositories;
@@ -37,6 +38,7 @@ builder.Services.Configure<ElasticSearchSettings>(x => config.GetSection("Elasti
 builder.Services.AddSingleton<ElasticSearchContext>();
 
 builder.Services.AddNoiseData(config);
+builder.Services.AddHive();
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
