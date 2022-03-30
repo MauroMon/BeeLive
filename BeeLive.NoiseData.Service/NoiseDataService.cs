@@ -32,25 +32,30 @@ namespace BeeLive.NoiseData.Service
                 throw new ArgumentOutOfRangeException(nameof(noiseDataDto), "Decibel must be >=0");
             }
 
-            var average = await repository.GetAverage(DateTime.UtcNow.AddHours(-config.HoursToCheck), DateTime.UtcNow, noiseDataDto.HiveId);
+            await UpdateHiveStatusAsync(noiseDataDto.HiveId, noiseDataDto.Decibel);
+            await repository.AddAsync(noiseDataDto.ToEntity());
+        }
 
-            if(average.Count < config.MinRequiredValues)
+        public async Task UpdateHiveStatusAsync(int hiveId, decimal decibel)
+        {
+            var average = await repository.GetAverage(DateTime.UtcNow.AddHours(-config.HoursToCheck), DateTime.UtcNow, hiveId);
+
+            if (average.Count >= config.MinRequiredValues)
             {
-                logger.LogInformation($"Hive {noiseDataDto.HiveId}: We have only {average.Count} noise values. In order to work at least {config.MinRequiredValues} values are required");
+                var warningAverage = average.Average + (decimal.Divide(average.Average, 100) * config.WarningPercentage);
+                if (decibel > warningAverage)
+                {
+                    logger.LogInformation($"Hive {hiveId}: SUSPECT NOISE!, warning average is {warningAverage}, noise is {decibel} db");
+                }
+                else
+                {
+                    logger.LogInformation($"Hive {hiveId}: reciceved {decibel} db");
+                }
             }
             else
             {
-                var warningAverage = average.Average + (decimal.Divide(average.Average, 100) * config.WarningPercentage);
-                if(noiseDataDto.Decibel > warningAverage)
-                {
-                    logger.LogInformation($"Hive {noiseDataDto.HiveId}: SUSPECT NOISE!, warning average is {warningAverage}, noise is {noiseDataDto.Decibel} db");
-                }
-                else 
-                {
-                    logger.LogInformation($"Hive {noiseDataDto.HiveId}: reciceved {noiseDataDto.Decibel} db");
-                }
+                logger.LogInformation($"Hive {hiveId}: We have only {average.Count} noise values. In order to work at least {config.MinRequiredValues} values are required");
             }
-            await repository.AddAsync(noiseDataDto.ToEntity());
         }
     }
 }
