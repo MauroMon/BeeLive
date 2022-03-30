@@ -28,12 +28,18 @@ namespace BeeLive.Persistence
 
             Client = new ElasticClient(settings);
 
-            //Check if temperature data index exists
             logger.LogInformation($"Check if index {valueSettings.NoiseDataIndex} exists");
             if (!Client.Indices.Exists(valueSettings.NoiseDataIndex).Exists)
             {
                 logger.LogInformation($"Creating index {valueSettings.NoiseDataIndex}");
                 Client.Indices.Create(new CreateIndexDescriptor(valueSettings.NoiseDataIndex).Map<NoiseData.Core.Entities.NoiseData>(pu => pu.AutoMap()));
+            }
+
+            logger.LogInformation($"Check if index {valueSettings.HiveIndex} exists");
+            if (!Client.Indices.Exists(valueSettings.HiveIndex).Exists)
+            {
+                logger.LogInformation($"Creating index {valueSettings.HiveIndex}");
+                Client.Indices.Create(new CreateIndexDescriptor(valueSettings.NoiseDataIndex).Map<Hive.Core.Entities.Hive>(pu => pu.AutoMap()));
             }
         }
     }

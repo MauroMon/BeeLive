@@ -21,9 +21,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeLive.NoiseData.Modules",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeLive.NoiseData.Tests", "BeeLive.NoiseData.Tests\BeeLive.NoiseData.Tests.csproj", "{1C640315-D0D9-4815-8628-60DAB2994C38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeLive.NoiseData.Core", "BeeLive.NoiseData.Core\BeeLive.NoiseData.Core.csproj", "{4B680D78-93D1-4CCF-92CB-2AC282B68E01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeLive.NoiseData.Core", "BeeLive.NoiseData.Core\BeeLive.NoiseData.Core.csproj", "{4B680D78-93D1-4CCF-92CB-2AC282B68E01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeLive.NoiseData.Persistence", "BeeLive.NoiseData.Persistence\BeeLive.NoiseData.Persistence.csproj", "{316C93BD-3EDA-4EDB-937A-FBB6BBBF3F6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeLive.NoiseData.Persistence", "BeeLive.NoiseData.Persistence\BeeLive.NoiseData.Persistence.csproj", "{316C93BD-3EDA-4EDB-937A-FBB6BBBF3F6F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hive", "Hive", "{443C6547-9793-4D2A-A335-D1BDCADB7629}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeLive.Hive.Core", "BeeLive.Hive.Core\BeeLive.Hive.Core.csproj", "{CF5BBDBE-DC6F-4A4B-97FB-661ABD82DE1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeLive.Hive.Persistence", "BeeLive.Hive.Persistence\BeeLive.Hive.Persistence.csproj", "{1682F944-EB54-404D-866D-9811FB219A48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +77,14 @@ Global
 		{316C93BD-3EDA-4EDB-937A-FBB6BBBF3F6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{316C93BD-3EDA-4EDB-937A-FBB6BBBF3F6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{316C93BD-3EDA-4EDB-937A-FBB6BBBF3F6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF5BBDBE-DC6F-4A4B-97FB-661ABD82DE1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF5BBDBE-DC6F-4A4B-97FB-661ABD82DE1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF5BBDBE-DC6F-4A4B-97FB-661ABD82DE1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF5BBDBE-DC6F-4A4B-97FB-661ABD82DE1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1682F944-EB54-404D-866D-9811FB219A48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1682F944-EB54-404D-866D-9811FB219A48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1682F944-EB54-404D-866D-9811FB219A48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1682F944-EB54-404D-866D-9811FB219A48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +97,8 @@ Global
 		{1C640315-D0D9-4815-8628-60DAB2994C38} = {CD73F710-8ED9-4544-A2F6-35CDD605A9D8}
 		{4B680D78-93D1-4CCF-92CB-2AC282B68E01} = {CD73F710-8ED9-4544-A2F6-35CDD605A9D8}
 		{316C93BD-3EDA-4EDB-937A-FBB6BBBF3F6F} = {CD73F710-8ED9-4544-A2F6-35CDD605A9D8}
+		{CF5BBDBE-DC6F-4A4B-97FB-661ABD82DE1B} = {443C6547-9793-4D2A-A335-D1BDCADB7629}
+		{1682F944-EB54-404D-866D-9811FB219A48} = {443C6547-9793-4D2A-A335-D1BDCADB7629}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A2E4CC27-77EC-44D0-AB3E-793676DFA516}

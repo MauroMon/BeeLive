@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BeeLive.Hive.Core\BeeLive.Hive.Core.csproj" />
+    <ProjectReference Include="..\BeeLive.NoiseData.Persistence\BeeLive.NoiseData.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>
