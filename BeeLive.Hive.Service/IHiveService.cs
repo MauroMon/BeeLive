@@ -9,5 +9,6 @@ namespace BeeLive.Hive.Service
     public interface IHiveService
     {
         Task<Core.Entities.Hive> GetOrCreateHiveAsync(int HiveId);
+        Task UpdateHive(Core.Entities.Hive hive);
     }
 }

@@ -69,14 +69,28 @@ namespace BeeLive.NoiseData.Service
         public async Task UpdateHiveStatusAsync(int hiveId, bool warning)
         {
             Hive.Core.Entities.Hive hive = await hiveService.GetOrCreateHiveAsync(hiveId);
+            var noiseDataCount = await repository.CountAsync(DateTime.UtcNow.AddMinutes(-config.WarningConsecutiveMinutes), DateTime.UtcNow, hiveId);
             if (warning && hive.Status == HiveStatus.Ok)
             {
-                var noiseDataCount = await repository.CountAsync(DateTime.UtcNow.AddMinutes(-config.WarningConsecutiveMinutes), DateTime.UtcNow, hiveId);
-                var warningCount = Math.Floor(decimal.Divide(noiseDataCount.Total, 100) * config.WarningConsecutiveMinutesPercentage);
-                if(noiseDataCount.Warning > warningCount)
+                //there is a warning noise but hive is ok... need to check if hive need to be update to warning
+                var warningMargin = Math.Floor(decimal.Divide(noiseDataCount.Total, 100) * config.WarningConsecutiveMinutesPercentage);
+                if(noiseDataCount.Warning > warningMargin)
                 {
-                    logger.LogInformation($"Hive {1} nosie warning!");
+                    logger.LogInformation($"Hive {hiveId} nosie warning!");
                     hive.Status = HiveStatus.Warning;
+                    await hiveService.UpdateHive(hive);
+                }
+            }
+            else if(!warning && hive.Status == HiveStatus.Warning)
+            {
+                //noise in not warning but hive is warning... need to check if hive can be restored to normal status
+                var notWarningMargin = Math.Floor(decimal.Divide(noiseDataCount.Total -noiseDataCount.Warning, 100) * config.WarningConsecutiveMinutesPercentage);
+                if(noiseDataCount.Warning < notWarningMargin)
+                {
+                    //hive can be restored to normal status
+                    logger.LogInformation($"Hive {hiveId} noise back to normal");
+                    hive.Status = HiveStatus.Ok;
+                    await hiveService.UpdateHive(hive);
                 }
             }
         }

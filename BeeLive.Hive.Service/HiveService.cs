@@ -26,5 +26,10 @@ namespace BeeLive.Hive.Service
             }
             return hive;
         }
+
+        public async Task UpdateHive(Core.Entities.Hive hive)
+        {
+            await repository.AddAsync(hive);
+        }
     }
 }
