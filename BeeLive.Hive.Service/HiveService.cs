@@ -76,7 +76,7 @@ namespace BeeLive.Hive.Service
                     await repository.AddAsync(hive);
                 }
             }
-            else if (hive.Status == Core.Entities.HiveStatus.Ok)
+            else if (hive.Status == Core.Entities.HiveStatus.Warning)
             {
                 //noise in not warning but hive is warning... need to check if hive can be restored to normal status
                 var notWarningMargin = Math.Floor(decimal.Divide(noiseDataCount.Total - noiseDataCount.Warning, 100) * noiseDataSettings.WarningConsecutiveMinutesPercentage);
