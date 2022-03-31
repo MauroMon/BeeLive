@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BeeLive.Hive.TransferModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,6 @@ namespace BeeLive.Hive.Service
 {
     public interface IHiveService
     {
-        Task<Core.Entities.Hive> GetOrCreateHiveAsync(int HiveId);
-        Task UpdateHive(Core.Entities.Hive hive);
+        Task<HiveDto> GetHive(int HiveId);
     }
 }

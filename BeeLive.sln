@@ -27,13 +27,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeLive.NoiseData.Persisten
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hive", "Hive", "{443C6547-9793-4D2A-A335-D1BDCADB7629}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeLive.Hive.Core", "BeeLive.Hive.Core\BeeLive.Hive.Core.csproj", "{CF5BBDBE-DC6F-4A4B-97FB-661ABD82DE1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeLive.Hive.Core", "BeeLive.Hive.Core\BeeLive.Hive.Core.csproj", "{CF5BBDBE-DC6F-4A4B-97FB-661ABD82DE1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeLive.Hive.Persistence", "BeeLive.Hive.Persistence\BeeLive.Hive.Persistence.csproj", "{1682F944-EB54-404D-866D-9811FB219A48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeLive.Hive.Persistence", "BeeLive.Hive.Persistence\BeeLive.Hive.Persistence.csproj", "{1682F944-EB54-404D-866D-9811FB219A48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeLive.Hive.Modules", "BeeLive.Hive.Modules\BeeLive.Hive.Modules.csproj", "{190BA261-432A-4F24-BC99-B556AE3DDEA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeLive.Hive.Modules", "BeeLive.Hive.Modules\BeeLive.Hive.Modules.csproj", "{190BA261-432A-4F24-BC99-B556AE3DDEA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeLive.Hive.Service", "BeeLive.Hive.Service\BeeLive.Hive.Service.csproj", "{368D739A-FDB0-43C6-9135-FE7AD3BEA96A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeLive.Hive.Service", "BeeLive.Hive.Service\BeeLive.Hive.Service.csproj", "{368D739A-FDB0-43C6-9135-FE7AD3BEA96A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeLive.Hive.TransferModels", "BeeLive.Hive.TransferModels\BeeLive.Hive.TransferModels.csproj", "{B3D20C09-DB32-4ADC-9AA4-5592C4C681D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeLive.Hive.TransferModels.Mapping", "BeeLive.Hive.TransferModels.Mapping\BeeLive.Hive.TransferModels.Mapping.csproj", "{A6B65FB8-0208-4DA6-8805-3F2D36F63C11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,6 +101,14 @@ Global
 		{368D739A-FDB0-43C6-9135-FE7AD3BEA96A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{368D739A-FDB0-43C6-9135-FE7AD3BEA96A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{368D739A-FDB0-43C6-9135-FE7AD3BEA96A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3D20C09-DB32-4ADC-9AA4-5592C4C681D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3D20C09-DB32-4ADC-9AA4-5592C4C681D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3D20C09-DB32-4ADC-9AA4-5592C4C681D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3D20C09-DB32-4ADC-9AA4-5592C4C681D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6B65FB8-0208-4DA6-8805-3F2D36F63C11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6B65FB8-0208-4DA6-8805-3F2D36F63C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6B65FB8-0208-4DA6-8805-3F2D36F63C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6B65FB8-0208-4DA6-8805-3F2D36F63C11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -113,6 +125,8 @@ Global
 		{1682F944-EB54-404D-866D-9811FB219A48} = {443C6547-9793-4D2A-A335-D1BDCADB7629}
 		{190BA261-432A-4F24-BC99-B556AE3DDEA6} = {443C6547-9793-4D2A-A335-D1BDCADB7629}
 		{368D739A-FDB0-43C6-9135-FE7AD3BEA96A} = {443C6547-9793-4D2A-A335-D1BDCADB7629}
+		{B3D20C09-DB32-4ADC-9AA4-5592C4C681D4} = {443C6547-9793-4D2A-A335-D1BDCADB7629}
+		{A6B65FB8-0208-4DA6-8805-3F2D36F63C11} = {443C6547-9793-4D2A-A335-D1BDCADB7629}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A2E4CC27-77EC-44D0-AB3E-793676DFA516}

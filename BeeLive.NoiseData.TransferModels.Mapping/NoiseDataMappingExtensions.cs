@@ -12,5 +12,14 @@
                 Warning = warning
             };
         }
+
+        public static NoiseDataCountDto ToDto(this Core.Entities.NoiseDataCount noiseDataCount)
+        {
+            return new NoiseDataCountDto()
+            {
+                Total = noiseDataCount.Total,
+                Warning = noiseDataCount.Warning
+            };
+        }
     }
 }

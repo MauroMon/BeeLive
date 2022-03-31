@@ -12,6 +12,6 @@ namespace BeeLive.NoiseData.Core.Repositories
     {
         Task<NoiseDataCount> CountAsync(DateTime dtFrom, DateTime dtTo, int hiveId);
         Task<NoiseDataAvg> GetAverage(DateTime dtStart, DateTime dtEnd, int HiveId);
-
+        Task<decimal> GetLastNoiseData(int HiveId);
     }
 }
