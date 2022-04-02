@@ -88,5 +88,31 @@ namespace BeeLive.NoiseData.Tests
             var result = await service.GetHiveStatusAsync(hiveId);
             result.Should().Be(expcetedStatus);
         }
+
+        [Fact]
+        public async Task GetHiveStatusNotEnoughDataAsync()
+        {
+            int hiveId = 1;
+            repository.Setup(r => r.CountAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>(), hiveId)).ReturnsAsync(new Core.Entities.NoiseDataCount() { Total = 10, Warning = 10 });
+            settings.Value.AlarmConsecutiveMinutesPercentage = 90;
+            settings.Value.AlarmMinRequiredValues = 20;
+            settings.Value.WarningMinRequiredValues = 20;
+            settings.Value.WarningConsecutiveMinutesPercentage = 80;
+            var result = await service.GetHiveStatusAsync(hiveId);
+            result.Should().Be(NoiseDataStatus.Ok);
+        }
+
+        [Fact]
+        public async Task GetHiveStatusNotEnoughDataAlarmResturnWarningAsync()
+        {
+            int hiveId = 1;
+            repository.Setup(r => r.CountAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>(), hiveId)).ReturnsAsync(new Core.Entities.NoiseDataCount() { Total = 10, Warning = 10 });
+            settings.Value.AlarmConsecutiveMinutesPercentage = 90;
+            settings.Value.AlarmMinRequiredValues = 20;
+            settings.Value.WarningMinRequiredValues = 8;
+            settings.Value.WarningConsecutiveMinutesPercentage = 80;
+            var result = await service.GetHiveStatusAsync(hiveId);
+            result.Should().Be(NoiseDataStatus.Warning);
+        }
     }
 }
