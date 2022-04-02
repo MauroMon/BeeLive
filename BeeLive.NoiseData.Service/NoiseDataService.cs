@@ -90,6 +90,11 @@ namespace BeeLive.NoiseData.Service
         {
             //chec alarm
             var alarmNoiseDataCount = await repository.CountAsync(DateTime.UtcNow.AddMinutes(-settings.AlarmConsecutiveMinutes), DateTime.UtcNow, hiveId);
+            if(alarmNoiseDataCount.Total == 0)
+            {
+                logger.LogInformation($"Hive {hiveId} no data. return ok");
+                return NoiseDataStatus.Ok;
+            }
             var alarmaMargin = GetPercentage(alarmNoiseDataCount.Total, settings.AlarmConsecutiveMinutesPercentage);
             if(alarmNoiseDataCount.Warning >= alarmaMargin)
             {
