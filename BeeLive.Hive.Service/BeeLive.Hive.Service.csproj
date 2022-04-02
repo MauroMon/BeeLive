@@ -7,8 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BeeLive.Hive.Core\BeeLive.Hive.Core.csproj" />
-    <ProjectReference Include="..\BeeLive.Hive.TransferModels.Mapping\BeeLive.Hive.TransferModels.Mapping.csproj" />
     <ProjectReference Include="..\BeeLive.Hive.TransferModels\BeeLive.Hive.TransferModels.csproj" />
     <ProjectReference Include="..\BeeLive.NoiseData.Service\BeeLive.NoiseData.Service.csproj" />
   </ItemGroup>
