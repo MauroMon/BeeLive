@@ -8,5 +8,6 @@ namespace BeeLive.NoiseData.Service
         Task InsertNoiseData(NoiseDataDto noiseDataDto);
 
         Task<decimal> GetLastNoiseDataAsync(int hiveId);
+        Task<NoiseDataStatus> GetHiveStatus(int hiveId);
     }
 }

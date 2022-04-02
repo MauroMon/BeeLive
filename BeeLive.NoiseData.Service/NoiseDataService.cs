@@ -67,5 +67,33 @@ namespace BeeLive.NoiseData.Service
         {
             return await repository.GetLastNoiseData(hiveId);
         }
+
+        public async Task<NoiseDataStatus> GetHiveStatus(int hiveId)
+        {
+            //chec alarm
+            var alarmNoiseDataCount = await GetWarningCountAsync(DateTime.UtcNow.AddMinutes(-config.AlarmConsecutiveMinutes), DateTime.UtcNow, hiveId);
+            var alarmaMargin = GetPercentage(alarmNoiseDataCount.Total, config.AlarmCOnsecutiveMinutesPercentage);
+            if(alarmNoiseDataCount.Total > alarmaMargin)
+            {
+                logger.LogInformation($"Hive {hiveId} noise alarm!");
+                return NoiseDataStatus.Alarm;
+            }
+            
+            //check warning
+            var warningNoiseDataCount = await GetWarningCountAsync(DateTime.UtcNow.AddMinutes(-config.WarningConsecutiveMinutes), DateTime.UtcNow, hiveId);
+            var warningMargin = GetPercentage(warningNoiseDataCount.Total, config.WarningConsecutiveMinutesPercentage);
+            if (warningNoiseDataCount.Warning > warningMargin)
+            {
+                logger.LogInformation($"Hive {hiveId} nosie warning!");
+                return NoiseDataStatus.Warning;
+            }
+            logger.LogInformation($"Hive {hiveId} noise ok");
+            return NoiseDataStatus.Ok;
+        }
+
+        private decimal GetPercentage(decimal d1, decimal d2)
+        {
+            return Math.Floor(decimal.Divide(d1, 100) * d2);
+        }
     }
 }

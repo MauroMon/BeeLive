@@ -9,13 +9,11 @@ namespace BeeLive.Hive.Service
     public class HiveService : IHiveService
     {
         private INoiseDataService noiseDataService;
-        private NoiseDataSettings noiseDataSettings;
         private ILogger logger;
 
-        public HiveService(INoiseDataService noiseDataService, IOptions<NoiseDataSettings> noiseDataSettings, ILogger<INoiseDataService> logger)
+        public HiveService(INoiseDataService noiseDataService, ILogger<INoiseDataService> logger)
         {
             this.noiseDataService = noiseDataService;
-            this.noiseDataSettings = noiseDataSettings.Value;
             this.logger = logger;
         }
 
@@ -29,27 +27,9 @@ namespace BeeLive.Hive.Service
             return new HiveDto()
             {
                 Id = hiveId,
-                Status = await GetHiveStatus(hiveId),
-                Noise = await noiseDataService.GetLastNoiseDataAsync(hiveId)
+                Status = Enum.Parse<HiveStatus>((await noiseDataService.GetHiveStatus(hiveId)).ToString()),
+                Decibel = await noiseDataService.GetLastNoiseDataAsync(hiveId)
             };
-        }
-
-        /// <summary>
-        /// Update Hive status (ok, warn, alert) 
-        /// </summary>
-        /// <param name="hiveId">Hive ID</param>
-        /// <returns>The Hive with the updates status</returns>
-        private async Task<HiveStatus> GetHiveStatus(int hiveId)
-        {
-            var noiseDataCount = await noiseDataService.GetWarningCountAsync(DateTime.UtcNow.AddMinutes(-noiseDataSettings.WarningConsecutiveMinutes), DateTime.UtcNow, hiveId);
-
-            var warningMargin = Math.Floor(decimal.Divide(noiseDataCount.Total, 100) * noiseDataSettings.WarningConsecutiveMinutesPercentage);
-            if (noiseDataCount.Warning > warningMargin)
-            {
-                logger.LogInformation($"Hive {hiveId} nosie warning!");
-                return HiveStatus.Warning;
-            }
-            return HiveStatus.Ok;
         }
     }
 }
