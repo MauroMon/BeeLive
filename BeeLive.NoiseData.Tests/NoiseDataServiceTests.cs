@@ -53,7 +53,7 @@ namespace BeeLive.NoiseData.Tests
             int hiveId = 1;
             repository.Setup(r => r.GetAverage(It.IsAny<DateTime>(), It.IsAny<DateTime>(), hiveId)).ReturnsAsync(new Core.Entities.NoiseDataAvg() { Count = 10, Average = 30 });
             settings.Value.MinRequiredValues = 2;
-            settings.Value.WarningNiseIncreasePercentage = 20;
+            settings.Value.WarningNoiseIncreasePercentage = 20;
             NoiseDataDto noiseDataDto = new NoiseDataDto()
             {
                 HiveId = hiveId,
@@ -70,7 +70,7 @@ namespace BeeLive.NoiseData.Tests
             int hiveId = 1;
             repository.Setup(r => r.GetAverage(It.IsAny<DateTime>(), It.IsAny<DateTime>(), hiveId)).ReturnsAsync(new Core.Entities.NoiseDataAvg() { Count = 10, Average = 30 });
             settings.Value.MinRequiredValues = 2;
-            settings.Value.WarningNiseIncreasePercentage = 20;
+            settings.Value.WarningNoiseIncreasePercentage = 20;
             NoiseDataDto noiseDataDto = new NoiseDataDto()
             {
                 HiveId = hiveId,
@@ -88,7 +88,7 @@ namespace BeeLive.NoiseData.Tests
             int hiveId = 1;
             repository.Setup(r => r.GetAverage(It.IsAny<DateTime>(), It.IsAny<DateTime>(), hiveId)).ReturnsAsync(new Core.Entities.NoiseDataAvg() { Count = 10, Average = 30 });
             settings.Value.MinRequiredValues = 2;
-            settings.Value.WarningNiseIncreasePercentage = 20;
+            settings.Value.WarningNoiseIncreasePercentage = 20;
             NoiseDataDto noiseDataDto = new NoiseDataDto()
             {
                 HiveId = hiveId,
@@ -106,7 +106,7 @@ namespace BeeLive.NoiseData.Tests
             int hiveId = 1;
             repository.Setup(r => r.GetAverage(It.IsAny<DateTime>(), It.IsAny<DateTime>(), hiveId)).ReturnsAsync(new Core.Entities.NoiseDataAvg() { Count = 10, Average = 30 });
             settings.Value.MinRequiredValues = 2;
-            settings.Value.WarningNiseIncreasePercentage = 20;
+            settings.Value.WarningNoiseIncreasePercentage = 20;
             NoiseDataDto noiseDataDto = new NoiseDataDto()
             {
                 HiveId = hiveId,

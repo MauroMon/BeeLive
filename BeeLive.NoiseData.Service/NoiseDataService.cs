@@ -39,7 +39,7 @@ namespace BeeLive.NoiseData.Service
             var average = await repository.GetAverage(DateTime.UtcNow.AddHours(-settings.HoursToCheck), DateTime.UtcNow, hiveId);
             if (average.Count >= settings.MinRequiredValues)
             {
-                var warningDecibel = average.Average + (decimal.Divide(average.Average, 100) * settings.WarningNiseIncreasePercentage);
+                var warningDecibel = average.Average + (decimal.Divide(average.Average, 100) * settings.WarningNoiseIncreasePercentage);
                 if (decibel > warningDecibel)
                 {
                     logger.LogInformation($"Hive {hiveId}: SUSPECT NOISE!, warning average is {warningDecibel}, noise is {decibel} db");
