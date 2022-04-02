@@ -66,7 +66,7 @@ namespace BeeLive.NoiseData.Service
             }
             else
             {
-                logger.LogInformation($"Hive {hiveId}: We have only {average.Count} noise values. In order to work at least {settings.MinRequiredValues} values are required");
+                logger.LogInformation($"Hive {hiveId}: recevided {decibel} db. We have only {average.Count} noise values. In order to work at least {settings.MinRequiredValues} values are required");
                 return false;
             }
         }
@@ -88,28 +88,38 @@ namespace BeeLive.NoiseData.Service
         /// <returns>The hive status</returns>
         public async Task<NoiseDataStatus> GetHiveStatusAsync(int hiveId)
         {
-            //chec alarm
+            //check alarm
             var alarmNoiseDataCount = await repository.CountAsync(DateTime.UtcNow.AddMinutes(-settings.AlarmConsecutiveMinutes), DateTime.UtcNow, hiveId);
-            if(alarmNoiseDataCount.Total == 0)
+            if (alarmNoiseDataCount.Total > settings.AlarmMinRequiredValues)
             {
-                logger.LogInformation($"Hive {hiveId} no data. return ok");
-                return NoiseDataStatus.Ok;
+                var alarmaMargin = GetPercentage(alarmNoiseDataCount.Total, settings.AlarmConsecutiveMinutesPercentage);
+                if (alarmNoiseDataCount.Warning >= alarmaMargin)
+                {
+                    logger.LogInformation($"Hive {hiveId} noise alarm!");
+                    return NoiseDataStatus.Alarm;
+                }
             }
-            var alarmaMargin = GetPercentage(alarmNoiseDataCount.Total, settings.AlarmConsecutiveMinutesPercentage);
-            if(alarmNoiseDataCount.Warning >= alarmaMargin)
+            else
             {
-                logger.LogInformation($"Hive {hiveId} noise alarm!");
-                return NoiseDataStatus.Alarm;
+                logger.LogInformation($"Hive {hiveId} not enougth data for alarm, actual {alarmNoiseDataCount.Total}, min {settings.AlarmMinRequiredValues}");
             }
-            
+
             //check warning
             var warningNoiseDataCount = await repository.CountAsync(DateTime.UtcNow.AddMinutes(-settings.WarningConsecutiveMinutes), DateTime.UtcNow, hiveId);
-            var warningMargin = GetPercentage(warningNoiseDataCount.Total, settings.WarningConsecutiveMinutesPercentage);
-            if (warningNoiseDataCount.Warning >= warningMargin)
+            if (warningNoiseDataCount.Total > settings.WarningMinRequiredValues)
             {
-                logger.LogInformation($"Hive {hiveId} nosie warning!");
-                return NoiseDataStatus.Warning;
+                var warningMargin = GetPercentage(warningNoiseDataCount.Total, settings.WarningConsecutiveMinutesPercentage);
+                if (warningNoiseDataCount.Warning >= warningMargin)
+                {
+                    logger.LogInformation($"Hive {hiveId} nosie warning!");
+                    return NoiseDataStatus.Warning;
+                }
             }
+            else
+            {
+                logger.LogInformation($"Hive {hiveId} not enougth data for warning, actual {alarmNoiseDataCount.Total}, min {settings.WarningMinRequiredValues}");
+            }
+            
             logger.LogInformation($"Hive {hiveId} noise ok");
             return NoiseDataStatus.Ok;
         }

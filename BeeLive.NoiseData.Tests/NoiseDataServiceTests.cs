@@ -81,6 +81,8 @@ namespace BeeLive.NoiseData.Tests
             repository.Setup(r => r.CountAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>(), hiveId)).ReturnsAsync(new Core.Entities.NoiseDataCount() { Total = 10, Warning = warningCount });
             //note that 90% of 10 = 9
             settings.Value.AlarmConsecutiveMinutesPercentage = 90;
+            settings.Value.AlarmMinRequiredValues = 5;
+            settings.Value.WarningMinRequiredValues = 5;
             //note that 80% of 10 = 8
             settings.Value.WarningConsecutiveMinutesPercentage = 80;
             var result = await service.GetHiveStatusAsync(hiveId);
