@@ -14,6 +14,6 @@ namespace BeeLive.NoiseData.Core.Settings
         public int WarningConsecutiveMinutes { get; set; }
         public int WarningConsecutiveMinutesPercentage { get; set; }
         public int AlarmConsecutiveMinutes { get; set; }
-        public int AlarmCOnsecutiveMinutesPercentage { get; set; }
+        public int AlarmConsecutiveMinutesPercentage { get; set; }
     }
 }
