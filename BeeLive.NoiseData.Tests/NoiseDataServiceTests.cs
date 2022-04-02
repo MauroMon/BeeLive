@@ -68,5 +68,23 @@ namespace BeeLive.NoiseData.Tests
             //check that noise is inserted with warning = false
             repository.Verify(r => r.AddAsync(It.Is<Core.Entities.NoiseData>(n => n.Warning == expctedValue)));
         }
+
+        [Theory]
+        [InlineData(0, NoiseDataStatus.Ok)]
+        [InlineData(7, NoiseDataStatus.Ok)]
+        [InlineData(8, NoiseDataStatus.Warning)]
+        [InlineData(9, NoiseDataStatus.Alarm)]
+        [InlineData(10, NoiseDataStatus.Alarm)]
+        public async void GetHiveStatusAsync(int warningCount, NoiseDataStatus expcetedStatus)
+        {
+            int hiveId = 1;
+            repository.Setup(r => r.CountAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>(), hiveId)).ReturnsAsync(new Core.Entities.NoiseDataCount() { Total = 10, Warning = warningCount });
+            //note that 90% of 10 = 9
+            settings.Value.AlarmCOnsecutiveMinutesPercentage = 90;
+            //note that 80% of 10 = 8
+            settings.Value.WarningConsecutiveMinutesPercentage = 80;
+            var result = await service.GetHiveStatusAsync(hiveId);
+            result.Should().Be(expcetedStatus);
+        }
     }
 }
