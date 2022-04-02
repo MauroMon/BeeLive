@@ -67,12 +67,9 @@ namespace BeeLive.NoiseData.Persistence
         public async Task<decimal> GetLastNoiseData(int HiveId)
         {
             var result = await Context.Client.SearchAsync<Core.Entities.NoiseData>(sd => sd.Index(IndexName)
-                .Aggregations(ag =>
-                    ag.Filter("filter", filter =>
-                        filter.Filter(f =>
-                            f.Term(n => n.HiveId, HiveId))
-                    ))
+                .Query(q => q.Term(n => n.HiveId, HiveId))
                 .Sort(s => s.Field(n => n.Field(NoiseData => NoiseData.Dt).Order(SortOrder.Descending))).Size(1));
+
             return result.Documents.SingleOrDefault()?.Decibel ?? 0;
         }
 
