@@ -10,13 +10,13 @@ namespace BeeLive.NoiseData.Service
     public class NoiseDataService : INoiseDataService
     {
         private INoiseDataRepository repository;
-        private NoiseDataSettings config;
+        private NoiseDataSettings settings;
         private ILogger logger;
 
-        public NoiseDataService(INoiseDataRepository noiseDataRepository, IOptions<NoiseDataSettings> config, ILogger<INoiseDataService> logger)
+        public NoiseDataService(INoiseDataRepository noiseDataRepository, IOptions<NoiseDataSettings> settings, ILogger<INoiseDataService> logger)
         {
             this.repository = noiseDataRepository;
-            this.config = config.Value;
+            this.settings = settings.Value;
             this.logger = logger;
         }
 
@@ -36,10 +36,10 @@ namespace BeeLive.NoiseData.Service
 
         private async Task<bool> IsWarningAsync(int hiveId, decimal decibel)
         {
-            var average = await repository.GetAverage(DateTime.UtcNow.AddHours(-config.HoursToCheck), DateTime.UtcNow, hiveId);
-            if (average.Count >= config.MinRequiredValues)
+            var average = await repository.GetAverage(DateTime.UtcNow.AddHours(-settings.HoursToCheck), DateTime.UtcNow, hiveId);
+            if (average.Count >= settings.MinRequiredValues)
             {
-                var warningDecibel = average.Average + (decimal.Divide(average.Average, 100) * config.WarningNiseIncreasePercentage);
+                var warningDecibel = average.Average + (decimal.Divide(average.Average, 100) * settings.WarningNiseIncreasePercentage);
                 if (decibel > warningDecibel)
                 {
                     logger.LogInformation($"Hive {hiveId}: SUSPECT NOISE!, warning average is {warningDecibel}, noise is {decibel} db");
@@ -53,7 +53,7 @@ namespace BeeLive.NoiseData.Service
             }
             else
             {
-                logger.LogInformation($"Hive {hiveId}: We have only {average.Count} noise values. In order to work at least {config.MinRequiredValues} values are required");
+                logger.LogInformation($"Hive {hiveId}: We have only {average.Count} noise values. In order to work at least {settings.MinRequiredValues} values are required");
                 return false;
             }
         }
@@ -71,8 +71,8 @@ namespace BeeLive.NoiseData.Service
         public async Task<NoiseDataStatus> GetHiveStatus(int hiveId)
         {
             //chec alarm
-            var alarmNoiseDataCount = await GetWarningCountAsync(DateTime.UtcNow.AddMinutes(-config.AlarmConsecutiveMinutes), DateTime.UtcNow, hiveId);
-            var alarmaMargin = GetPercentage(alarmNoiseDataCount.Total, config.AlarmCOnsecutiveMinutesPercentage);
+            var alarmNoiseDataCount = await GetWarningCountAsync(DateTime.UtcNow.AddMinutes(-settings.AlarmConsecutiveMinutes), DateTime.UtcNow, hiveId);
+            var alarmaMargin = GetPercentage(alarmNoiseDataCount.Total, settings.AlarmCOnsecutiveMinutesPercentage);
             if(alarmNoiseDataCount.Total > alarmaMargin)
             {
                 logger.LogInformation($"Hive {hiveId} noise alarm!");
@@ -80,8 +80,8 @@ namespace BeeLive.NoiseData.Service
             }
             
             //check warning
-            var warningNoiseDataCount = await GetWarningCountAsync(DateTime.UtcNow.AddMinutes(-config.WarningConsecutiveMinutes), DateTime.UtcNow, hiveId);
-            var warningMargin = GetPercentage(warningNoiseDataCount.Total, config.WarningConsecutiveMinutesPercentage);
+            var warningNoiseDataCount = await GetWarningCountAsync(DateTime.UtcNow.AddMinutes(-settings.WarningConsecutiveMinutes), DateTime.UtcNow, hiveId);
+            var warningMargin = GetPercentage(warningNoiseDataCount.Total, settings.WarningConsecutiveMinutesPercentage);
             if (warningNoiseDataCount.Warning > warningMargin)
             {
                 logger.LogInformation($"Hive {hiveId} nosie warning!");
