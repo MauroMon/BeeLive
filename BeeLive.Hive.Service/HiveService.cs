@@ -18,10 +18,10 @@ namespace BeeLive.Hive.Service
         }
 
         /// <summary>
-        /// Get an Hive With noise data
+        /// Get Hive data
         /// </summary>
-        /// <param name="hiveId">Hive Id</param>
-        /// <returns>An hive with noise data</returns>
+        /// <param name="hiveId">Hive id</param>
+        /// <returns>hive data</returns>
         public async Task<HiveDto> GetHive(int hiveId)
         {
             return new HiveDto()

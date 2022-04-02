@@ -20,6 +20,13 @@ namespace BeeLive.NoiseData.Service
             this.logger = logger;
         }
 
+        /// <summary>
+        /// Insert noise data in db
+        /// </summary>
+        /// <param name="noiseDataDto">Noise data to insert</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public async Task InsertNoiseDataAsync(NoiseDataDto noiseDataDto)
         {
             if (noiseDataDto == null)
@@ -34,6 +41,12 @@ namespace BeeLive.NoiseData.Service
             await repository.AddAsync(noiseDataDto.ToEntity(warning));
         }
 
+        /// <summary>
+        /// Calculate if noise is warning
+        /// </summary>
+        /// <param name="hiveId">hive id</param>
+        /// <param name="decibel">noise data in decibel</param>
+        /// <returns>true if warning</returns>
         private async Task<bool> IsWarningAsync(int hiveId, decimal decibel)
         {
             var average = await repository.GetAverage(DateTime.UtcNow.AddHours(-settings.HoursToCheck), DateTime.UtcNow, hiveId);
@@ -58,11 +71,21 @@ namespace BeeLive.NoiseData.Service
             }
         }
 
+        /// <summary>
+        /// Get last recorded noise data
+        /// </summary>
+        /// <param name="hiveId">hive id</param>
+        /// <returns>Noise data in decibel</returns>
         public async Task<decimal> GetLastNoiseDataAsync(int hiveId)
         {
             return await repository.GetLastNoiseData(hiveId);
         }
 
+        /// <summary>
+        /// Calculate Hive status
+        /// </summary>
+        /// <param name="hiveId">Hive id</param>
+        /// <returns>The hive status</returns>
         public async Task<NoiseDataStatus> GetHiveStatusAsync(int hiveId)
         {
             //chec alarm
