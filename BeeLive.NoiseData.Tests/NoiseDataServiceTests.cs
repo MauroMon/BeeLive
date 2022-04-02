@@ -28,7 +28,7 @@ namespace BeeLive.NoiseData.Tests
         [Fact]
         public async void NegativeDecibelNotAdmitted()
         {
-            await service.Invoking(async y => await y.InsertNoiseData(new TransferModels.NoiseDataDto() { Decibel = -1, HiveId = 1 })).Should().ThrowAsync<ArgumentOutOfRangeException>();
+            await service.Invoking(async y => await y.InsertNoiseDataAsync(new TransferModels.NoiseDataDto() { Decibel = -1, HiveId = 1 })).Should().ThrowAsync<ArgumentOutOfRangeException>();
         }
 
         [Fact]
@@ -42,7 +42,7 @@ namespace BeeLive.NoiseData.Tests
                 HiveId = hiveId,
                 Decibel = 10
             };
-            await service.InsertNoiseData(noiseDataDto);
+            await service.InsertNoiseDataAsync(noiseDataDto);
             //check that noise is inserted with warning = false
             repository.Verify(r => r.AddAsync(It.Is<Core.Entities.NoiseData>(n => n.Warning == false)));
         }
@@ -59,7 +59,7 @@ namespace BeeLive.NoiseData.Tests
                 HiveId = hiveId,
                 Decibel = 10
             };
-            await service.InsertNoiseData(noiseDataDto);
+            await service.InsertNoiseDataAsync(noiseDataDto);
             //check that noise is inserted with warning = false
             repository.Verify(r => r.AddAsync(It.Is<Core.Entities.NoiseData>(n => n.Warning == false)));
         }
@@ -77,7 +77,7 @@ namespace BeeLive.NoiseData.Tests
                 Decibel = 35
             };
             //note that 30+ 20% = 36 
-            await service.InsertNoiseData(noiseDataDto);
+            await service.InsertNoiseDataAsync(noiseDataDto);
             //check that noise is inserted with warning = false
             repository.Verify(r => r.AddAsync(It.Is<Core.Entities.NoiseData>(n => n.Warning == false)));
         }
@@ -95,7 +95,7 @@ namespace BeeLive.NoiseData.Tests
                 Decibel = 40
             };
             //note that 30+ 20% = 36 
-            await service.InsertNoiseData(noiseDataDto);
+            await service.InsertNoiseDataAsync(noiseDataDto);
             //check that noise is inserted with warning = false
             repository.Verify(r => r.AddAsync(It.Is<Core.Entities.NoiseData>(n => n.Warning == true)));
         }
@@ -113,7 +113,7 @@ namespace BeeLive.NoiseData.Tests
                 Decibel = 36
             };
             //note that 30+ 20% = 36 
-            await service.InsertNoiseData(noiseDataDto);
+            await service.InsertNoiseDataAsync(noiseDataDto);
             //check that noise is inserted with warning = false
             repository.Verify(r => r.AddAsync(It.Is<Core.Entities.NoiseData>(n => n.Warning == false)));
         }

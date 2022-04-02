@@ -4,10 +4,9 @@ namespace BeeLive.NoiseData.Service
 {
     public interface INoiseDataService
     {
-        Task<NoiseDataCountDto> GetWarningCountAsync(DateTime dtFrom, DateTime dtTo, int hiveId);
-        Task InsertNoiseData(NoiseDataDto noiseDataDto);
+        Task InsertNoiseDataAsync(NoiseDataDto noiseDataDto);
 
         Task<decimal> GetLastNoiseDataAsync(int hiveId);
-        Task<NoiseDataStatus> GetHiveStatus(int hiveId);
+        Task<NoiseDataStatus> GetHiveStatusAsync(int hiveId);
     }
 }

@@ -20,7 +20,7 @@ namespace BeeLive.NoiseData.Service
             this.logger = logger;
         }
 
-        public async Task InsertNoiseData(NoiseDataDto noiseDataDto)
+        public async Task InsertNoiseDataAsync(NoiseDataDto noiseDataDto)
         {
             if (noiseDataDto == null)
             {
@@ -58,20 +58,15 @@ namespace BeeLive.NoiseData.Service
             }
         }
 
-        public async Task<NoiseDataCountDto> GetWarningCountAsync(DateTime dtFrom, DateTime dtTo, int hiveId)
-        {
-            return (await repository.CountAsync(dtFrom, dtTo, hiveId))?.ToDto();
-        }
-
         public async Task<decimal> GetLastNoiseDataAsync(int hiveId)
         {
             return await repository.GetLastNoiseData(hiveId);
         }
 
-        public async Task<NoiseDataStatus> GetHiveStatus(int hiveId)
+        public async Task<NoiseDataStatus> GetHiveStatusAsync(int hiveId)
         {
             //chec alarm
-            var alarmNoiseDataCount = await GetWarningCountAsync(DateTime.UtcNow.AddMinutes(-settings.AlarmConsecutiveMinutes), DateTime.UtcNow, hiveId);
+            var alarmNoiseDataCount = await repository.CountAsync(DateTime.UtcNow.AddMinutes(-settings.AlarmConsecutiveMinutes), DateTime.UtcNow, hiveId);
             var alarmaMargin = GetPercentage(alarmNoiseDataCount.Total, settings.AlarmCOnsecutiveMinutesPercentage);
             if(alarmNoiseDataCount.Total > alarmaMargin)
             {
@@ -80,7 +75,7 @@ namespace BeeLive.NoiseData.Service
             }
             
             //check warning
-            var warningNoiseDataCount = await GetWarningCountAsync(DateTime.UtcNow.AddMinutes(-settings.WarningConsecutiveMinutes), DateTime.UtcNow, hiveId);
+            var warningNoiseDataCount = await repository.CountAsync(DateTime.UtcNow.AddMinutes(-settings.WarningConsecutiveMinutes), DateTime.UtcNow, hiveId);
             var warningMargin = GetPercentage(warningNoiseDataCount.Total, settings.WarningConsecutiveMinutesPercentage);
             if (warningNoiseDataCount.Warning > warningMargin)
             {

@@ -27,7 +27,7 @@ namespace BeeLive.Hive.Service
             return new HiveDto()
             {
                 Id = hiveId,
-                Status = Enum.Parse<HiveStatus>((await noiseDataService.GetHiveStatus(hiveId)).ToString()),
+                Status = Enum.Parse<HiveStatus>((await noiseDataService.GetHiveStatusAsync(hiveId)).ToString()),
                 Decibel = await noiseDataService.GetLastNoiseDataAsync(hiveId)
             };
         }

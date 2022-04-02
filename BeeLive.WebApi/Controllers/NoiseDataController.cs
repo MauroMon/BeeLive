@@ -18,7 +18,7 @@ namespace BeeLive.WebApi.Controllers
         [HttpPost]
         public async Task AddAsync([FromBody] NoiseDataDto noiseData)
         {
-            await noiseDataService.InsertNoiseData(noiseData);
+            await noiseDataService.InsertNoiseDataAsync(noiseData);
         }
     }
 }
