@@ -47,8 +47,12 @@ namespace BeeLive.NoiseData.Tests
             repository.Verify(r => r.AddAsync(It.Is<Core.Entities.NoiseData>(n => n.Warning == false)));
         }
 
-        [Fact]
-        public async void NoiseLowerThanAvegareSetWarningToFalse()
+        [Theory]
+        [InlineData(10, false)]
+        [InlineData(35, false)]
+        [InlineData(36, false)]
+        [InlineData(40, true)]
+        public async Task CalculateWarningNoiseAsync(decimal decibel, bool expctedValue)
         {
             int hiveId = 1;
             repository.Setup(r => r.GetAverage(It.IsAny<DateTime>(), It.IsAny<DateTime>(), hiveId)).ReturnsAsync(new Core.Entities.NoiseDataAvg() { Count = 10, Average = 30 });
@@ -57,65 +61,12 @@ namespace BeeLive.NoiseData.Tests
             NoiseDataDto noiseDataDto = new NoiseDataDto()
             {
                 HiveId = hiveId,
-                Decibel = 10
-            };
-            await service.InsertNoiseDataAsync(noiseDataDto);
-            //check that noise is inserted with warning = false
-            repository.Verify(r => r.AddAsync(It.Is<Core.Entities.NoiseData>(n => n.Warning == false)));
-        }
-
-        [Fact]
-        public async void NoiseHigherThanAvegareAndLowerThatAveragePlusSettingPercentageSetWarningToFalse()
-        {
-            int hiveId = 1;
-            repository.Setup(r => r.GetAverage(It.IsAny<DateTime>(), It.IsAny<DateTime>(), hiveId)).ReturnsAsync(new Core.Entities.NoiseDataAvg() { Count = 10, Average = 30 });
-            settings.Value.MinRequiredValues = 2;
-            settings.Value.WarningNoiseIncreasePercentage = 20;
-            NoiseDataDto noiseDataDto = new NoiseDataDto()
-            {
-                HiveId = hiveId,
-                Decibel = 35
+                Decibel = decibel
             };
             //note that 30+ 20% = 36 
             await service.InsertNoiseDataAsync(noiseDataDto);
             //check that noise is inserted with warning = false
-            repository.Verify(r => r.AddAsync(It.Is<Core.Entities.NoiseData>(n => n.Warning == false)));
-        }
-
-        [Fact]
-        public async void NoisehigherThanAvegarePluseSettingPercentageSetWarningToTrue()
-        {
-            int hiveId = 1;
-            repository.Setup(r => r.GetAverage(It.IsAny<DateTime>(), It.IsAny<DateTime>(), hiveId)).ReturnsAsync(new Core.Entities.NoiseDataAvg() { Count = 10, Average = 30 });
-            settings.Value.MinRequiredValues = 2;
-            settings.Value.WarningNoiseIncreasePercentage = 20;
-            NoiseDataDto noiseDataDto = new NoiseDataDto()
-            {
-                HiveId = hiveId,
-                Decibel = 40
-            };
-            //note that 30+ 20% = 36 
-            await service.InsertNoiseDataAsync(noiseDataDto);
-            //check that noise is inserted with warning = false
-            repository.Verify(r => r.AddAsync(It.Is<Core.Entities.NoiseData>(n => n.Warning == true)));
-        }
-
-        [Fact]
-        public async void NoiseEqualsThatAveragePlusSettingPercentageSetWarningToFalse()
-        {
-            int hiveId = 1;
-            repository.Setup(r => r.GetAverage(It.IsAny<DateTime>(), It.IsAny<DateTime>(), hiveId)).ReturnsAsync(new Core.Entities.NoiseDataAvg() { Count = 10, Average = 30 });
-            settings.Value.MinRequiredValues = 2;
-            settings.Value.WarningNoiseIncreasePercentage = 20;
-            NoiseDataDto noiseDataDto = new NoiseDataDto()
-            {
-                HiveId = hiveId,
-                Decibel = 36
-            };
-            //note that 30+ 20% = 36 
-            await service.InsertNoiseDataAsync(noiseDataDto);
-            //check that noise is inserted with warning = false
-            repository.Verify(r => r.AddAsync(It.Is<Core.Entities.NoiseData>(n => n.Warning == false)));
+            repository.Verify(r => r.AddAsync(It.Is<Core.Entities.NoiseData>(n => n.Warning == expctedValue)));
         }
     }
 }
