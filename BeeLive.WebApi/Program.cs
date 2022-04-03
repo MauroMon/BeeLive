@@ -3,6 +3,7 @@ using BeeLive.Hive.Modules;
 using BeeLive.NoiseData.Modules;
 using BeeLive.Persistence;
 using BeeLive.Persistence.Repositories;
+using BeeLive.WebApi.Modules;
 using Microsoft.Extensions.Hosting.WindowsServices;
 using NLog;
 using NLog.Extensions.Logging;
@@ -40,11 +41,14 @@ builder.Services.AddSingleton<ElasticSearchContext>();
 builder.Services.AddNoiseData(config);
 builder.Services.AddHive();
 
+builder.Services.AddBeeLiveSwagger();
+
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (builder.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
+    app.UseBeeLiveSwagger();
 }
 
 

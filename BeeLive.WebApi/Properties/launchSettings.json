@@ -11,6 +11,8 @@
   "profiles": {
     "BeeLive.WebApi": {
       "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "https://localhost:7279/api/swagger/index.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
